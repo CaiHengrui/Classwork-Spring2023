@@ -14,11 +14,16 @@ The database will contain:
  - A+
  - A-
  - B+
+ - B-
+ - AB
 
  ## Future additions
 1. Patient Address
 2. Patient Gender
 3. Medical Record Number
+
+##
+
 
 The variable name is `x_variable`.
 
