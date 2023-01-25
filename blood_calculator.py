@@ -7,7 +7,7 @@ def interface():
         print("1-HDL")
 
         print("2-LDL")
-
+        print("3-Total Cholesterol")
         print("9-quit")
         choice = input("select an option：")
         if choice =="9":
@@ -18,6 +18,8 @@ def interface():
             HDL_driver()
         elif choice =="2":
             LDL_driver()
+        elif choice =="3":
+            TC_driver() 
     print("program ending")
 
 def HDL_driver(): 
@@ -32,7 +34,10 @@ def LDL_driver():
     LDL_analy=LDL_analysis(LDL_in)
     LDL_output(LDL_in,LDL_analy)
 
-
+def TC_driver():
+    TC_in=TC_input()
+    TC_analy=TC_analysis(TC_in)
+    TC_output(TC_in,TC_analy)
 
 
 
@@ -46,6 +51,11 @@ def LDL_input():
     LDL_value= input("Enter the LDL result:")
     LDL_value= int(LDL_value)    
     return LDL_value
+
+def TC_input():
+    TC_value= input("Enter the Total Cholesterol result:")
+    TC_value= int(TC_value)    
+    return TC_value
 
 
 
@@ -70,6 +80,17 @@ def LDL_analysis(LDL_int):
         answer="normal"    
     return answer
     
+def TC_analysis(TC_int):
+    if TC_int < 200:
+        answer = "Normal"
+    elif 200 <= TC_int < 240:
+        answer = "Borderline high"
+    else:
+        answer = "high"
+    return answer
+
+
+
 
 def HDL_output(HDL_value,HDL_analy):
     print("The HDL result of {} is considered {}".format(HDL_value,HDL_analy))
@@ -78,6 +99,10 @@ def HDL_output(HDL_value,HDL_analy):
  
 def LDL_output(LDL_value,LDL_analy):
     print("The LDL result of {} is considered {}".format(LDL_value,LDL_analy))
+    return
+
+def TC_output(TC_value,TC_analy):
+    print("The Total Cholesterol result of {} is considered {}".format(TC_value,TC_analy))
     return
 
 
