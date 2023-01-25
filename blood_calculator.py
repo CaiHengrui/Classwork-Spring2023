@@ -16,7 +16,7 @@ def interface():
             #new feature new branch
         elif choice =="1":
             HDL_driver()
-        elif choice =="2"
+        elif choice =="2":
             LDL_driver()
     print("program ending")
 
@@ -35,14 +35,16 @@ def LDL_driver():
 
 
 
+
+
 def HDL_input():
     HDL_value = input("Enter the HDL result:")
     HDL_value = int(HDL_value)
     return HDL_value
 
 def LDL_input():
-    LDL_value=input("Enter the LDL result:")
-    LDL_int=int(LDL_value)    
+    LDL_value= input("Enter the LDL result:")
+    LDL_value= int(LDL_value)    
     return LDL_value
 
 
@@ -66,7 +68,7 @@ def LDL_analysis(LDL_int):
         answer="Boarderline high"
     else:
         answer="normal"    
-    
+    return answer
     
 
 def HDL_output(HDL_value,HDL_analy):
@@ -75,7 +77,7 @@ def HDL_output(HDL_value,HDL_analy):
  
  
 def LDL_output(LDL_value,LDL_analy):
-    print("The LDL 
+    print("The LDL result of {} is considered {}".format(LDL_value,LDL_analy))
     return
 
 
