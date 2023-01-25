@@ -5,23 +5,23 @@ def interface():
     
         print("options:")
         print("1-HDL")
-        print("2-LDL")
+        # print("2-LDL")
         print("9-quit")
         choice = input("select an option：")
         if choice =="9":
             keep_running = False
             #new feature new branch
-        elif choice =="1"
+        elif choice =="1":
             HDL_driver()
-        elif choice =="2"
-            LDL_driver()
-     print("program end")
+        # elif choice =="2"
+            # LDL_driver()
+    print("program ending")
 
-# def HDL_driver(): 
-    # #HDL_input= HDL_input() same name problem
-    # HDL_in= HDL_input()
-    # HDL_analy =HDL_analysis(HDL_in)
-    # HDL_output=(HDL_in,HDL_analy)
+def HDL_driver(): 
+    #HDL_input= HDL_input() same name problem
+    HDL_in= HDL_input()
+    HDL_analy = HDL_analysis(HDL_in)
+    HDL_output(HDL_in,HDL_analy)
 
 # def LDL_driver():
     # LDL_in=LDL_input()
@@ -31,7 +31,7 @@ def interface():
 
 
 def HDL_input():
-    HDL_value=input("Enter the HDL result:")
+    HDL_value = input("Enter the HDL result:")
     HDL_value = int(HDL_value)
     return HDL_value
     
@@ -40,14 +40,14 @@ def HDL_input():
     # LDL_int=int(LDL_value)    
 
 
-# def HDL_analysis(HDL_int):
-    # if HDL_int >=60:
-        # answer="Normal"
-    # elif 40<= HDL_int<60:
-        # answer="Borderline low"
-    # else:
-        # answer ="low"
-    # return answer
+def HDL_analysis(HDL_int):
+    if HDL_int >= 60:
+        answer = "Normal"
+    elif 40 <= HDL_int < 60:
+        answer = "Borderline low"
+    else:
+        answer = "low"
+    return answer
     
 # def LDL_analysis(LDL_int):
     # if LDL_int >=190:
@@ -60,17 +60,15 @@ def HDL_input():
         # answer="normal"    
     
     
-# def HDL_output(HDL_value,HDL_analy):
-    # print("The HDL
-    # return
+def HDL_output(HDL_value,HDL_analy):
+    print("The HDL result of {} is considered {}".format(HDL_value,HDL_analy))
+    return
  
 # def LDL_output(LDL_value,LDL_analy):
     # print("The LDL 
     # return
 
 
-
- 
-interface()git
+interface()
 
 # merge zhihou  checkout main  and pull
