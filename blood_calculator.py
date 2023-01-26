@@ -5,7 +5,6 @@ def interface():
     
         print("options:")
         print("1-HDL")
-
         print("2-LDL")
         print("3-Total Cholesterol")
         print("9-quit")
@@ -22,40 +21,54 @@ def interface():
             TC_driver() 
     print("program ending")
 
+
+def generic_input(test_name):
+    value = input("Enter the {} value:".format(test_name))
+    value = int(value)
+    return value
+    
+def generic_output(test_name,test_value,test_analy):
+    print ("the {} result of {} is considered {}".format
+    (test_name,test_value,test_analy))
+    return
+
+
+
+
 def HDL_driver(): 
     #HDL_input= HDL_input() same name problem
-    HDL_in= HDL_input()
+    HDL_in= generic_input("HDL")
     HDL_analy = HDL_analysis(HDL_in)
-    HDL_output(HDL_in,HDL_analy)
+    generic_output("HDL",HDL_in,HDL_analy)
 
 
 def LDL_driver():
-    LDL_in=LDL_input()
+    LDL_in=generic_input("LDL")
     LDL_analy=LDL_analysis(LDL_in)
-    LDL_output(LDL_in,LDL_analy)
+    generic_output("LDL",LDL_in,LDL_analy)
 
 def TC_driver():
-    TC_in=TC_input()
+    TC_in=generic_input("Total Cholesterol")
     TC_analy=TC_analysis(TC_in)
-    TC_output(TC_in,TC_analy)
+    generic_output("Total Cholesterol",TC_in,TC_analy)
 
 
 
 
-def HDL_input():
-    HDL_value = input("Enter the HDL result:")
-    HDL_value = int(HDL_value)
-    return HDL_value
+# def HDL_input():
+    # HDL_value = input("Enter the HDL result:")
+    # HDL_value = int(HDL_value)
+    # return HDL_value
 
-def LDL_input():
-    LDL_value= input("Enter the LDL result:")
-    LDL_value= int(LDL_value)    
-    return LDL_value
+# def LDL_input():
+    # LDL_value= input("Enter the LDL result:")
+    # LDL_value= int(LDL_value)    
+    # return LDL_value
 
-def TC_input():
-    TC_value= input("Enter the Total Cholesterol result:")
-    TC_value= int(TC_value)    
-    return TC_value
+# def TC_input():
+    # TC_value= input("Enter the Total Cholesterol result:")
+    # TC_value= int(TC_value)    
+    # return TC_value
 
 
 
