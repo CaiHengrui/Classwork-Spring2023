@@ -9,7 +9,12 @@ This is written in Python.
 ## Specifications
 The database will contain:
 * Patient Name
+* Patient Mediacal Record Number
 * Patient Age
+* Patient Test Results
+
+
+
 * Patient Blooodtype
  - A+
  - A-
