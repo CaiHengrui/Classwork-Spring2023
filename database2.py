@@ -9,7 +9,8 @@ def main_driver():
     db.append(create_patient_entry("Bob Boyles", 2, 45))
     db.append(create_patient_entry("Chris Chou", 3, 52))
     print(db)
-    
+    print(db[1])
+    print(db[1][2])
 
 if __name__ == "__main__":
     main_driver()
