@@ -2,7 +2,7 @@ def interface():
     print("blood calculator")
     keep_running = True
     while keep_running:
-    
+
         print("options:")
         print("1-HDL")
         print("2-LDL")
@@ -28,8 +28,8 @@ def generic_input(test_name):
     return value
     
 def generic_output(test_name,test_value,test_analy):
-    print ("the {} result of {} is considered {}".format
-    (test_name,test_value,test_analy))
+    print ("the {} result of {} is considered {}"
+        .format(test_name,test_value,test_analy))
     return
 
 
@@ -92,7 +92,7 @@ def LDL_analysis(LDL_int):
     else:
         answer="normal"    
     return answer
-    
+
 def TC_analysis(TC_int):
     if TC_int < 200:
         answer = "Normal"
@@ -108,8 +108,8 @@ def TC_analysis(TC_int):
 def HDL_output(HDL_value,HDL_analy):
     print("The HDL result of {} is considered {}".format(HDL_value,HDL_analy))
     return
- 
- 
+
+
 def LDL_output(LDL_value,LDL_analy):
     print("The LDL result of {} is considered {}".format(LDL_value,LDL_analy))
     return
