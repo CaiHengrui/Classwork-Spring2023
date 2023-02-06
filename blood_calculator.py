@@ -119,8 +119,8 @@ def TC_output(TC_value,TC_analy):
     return
 
 
-interface()
 
-
+if __name__ == "__main__":
+    interface()
 
 # merge zhihou  checkout main  and pull
