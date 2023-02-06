@@ -20,6 +20,9 @@ def main_driver():
 def print_directory(db, room_numbers):
     for i, patient in enumerate(db):
         print("Patient {} is in room {}".format(patient[0], room_numbers[i]))
+    for patient, rn in zip(db, room_numbers):
+        print("Patient {} is in room {}".format(patient[0], rn))
+    
    
 
 
