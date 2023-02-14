@@ -16,6 +16,14 @@ def output_json(my_dict):
     json.dump(my_dict, out_file) #dump "my_dict" into "out_file"
     out_file.close() #close out_file make sure nothing bad happens
     
+    
+    #force to close the files that dont need. just two different approaches,both work
+def output_json_with(output_data):
+    filename = "my_output.txt"
+    with open(filename,"w") as out_file:
+        json.dump(output_data, out_file)
+    print("The output is finished")
+    
 
 
 def creat_list():
