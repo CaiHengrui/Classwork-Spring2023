@@ -11,17 +11,18 @@ def create_person():
    
 
 def output_json(my_dict):
-    filename = "patient.json" #chose a file name .json know encode in json string
+    filename = "my_booleans.json" #chose a file name .json know encode in json string
     out_file = open(filename,"w") #open it as a write? file
     json.dump(my_dict, out_file) #dump "my_dict" into "out_file"
     out_file.close() #close out_file make sure nothing bad happens
     
 
 
+def creat_list():
+    return [True,False,True] #in json is true false true not capitalize
 
 
 
 if __name__ == "__main__":
-    person = create_person()
-    print (person)
-    output_json(person)
+    data_to_output = creat_list()
+    output_json(data_to_output)
