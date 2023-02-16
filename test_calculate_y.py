@@ -1,6 +1,6 @@
 import pytest
 
-@pytest..mark.parametrize("coor1,coor2,new_x,expected",
+@pytest.mark.parametrize("coor1,coor2,new_x,expected",
 [((0,0),(1,1),2,2),
 ((0,0),(1,2),2,4),
 ((0,0),(1,0),3,0),
