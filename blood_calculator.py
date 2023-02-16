@@ -2,7 +2,7 @@ def interface():
     print("blood calculator")
     keep_running = True
     while keep_running:
-    
+
         print("options:")
         print("1-HDL")
         print("2-LDL")
@@ -28,8 +28,8 @@ def generic_input(test_name):
     return value
     
 def generic_output(test_name,test_value,test_analy):
-    print ("the {} result of {} is considered {}".format
-    (test_name,test_value,test_analy))
+    print ("the {} result of {} is considered {}"
+        .format(test_name,test_value,test_analy))
     return
 
 
@@ -92,7 +92,7 @@ def LDL_analysis(LDL_int):
     else:
         answer="normal"    
     return answer
-    
+
 def TC_analysis(TC_int):
     if TC_int < 200:
         answer = "Normal"
@@ -108,8 +108,8 @@ def TC_analysis(TC_int):
 def HDL_output(HDL_value,HDL_analy):
     print("The HDL result of {} is considered {}".format(HDL_value,HDL_analy))
     return
- 
- 
+
+
 def LDL_output(LDL_value,LDL_analy):
     print("The LDL result of {} is considered {}".format(LDL_value,LDL_analy))
     return
@@ -118,6 +118,14 @@ def TC_output(TC_value,TC_analy):
     print("The Total Cholesterol result of {} is considered {}".format(TC_value,TC_analy))
     return
 
+<<<<<<< HEAD
 if __name__ == "__main__":
     interface()
+=======
+
+
+if __name__ == "__main__":
+    interface()
+
+>>>>>>> 0ac5c100f9580d1d903b9fd14951bf89a1c6a91e
 # merge zhihou  checkout main  and pull
