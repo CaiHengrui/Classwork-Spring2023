@@ -30,7 +30,8 @@ def coordinate2_input():
 
 
 def calculate_slope(x1,x2,y1,y2):
-    
+    if x1 == x2:
+        return None
     slope = (y2 - y1) / (x2 - x1)
     return slope
     
