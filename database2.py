@@ -28,10 +28,13 @@ def main_driver():
     add_test_to_patient(db, 1, "HDL", 120)
     add_test_to_patient(db, 2, "LDL", 100)
     add_test_to_patient(db, 2, "HDL", 99)
-    room_numbers = ["103", "232", "333"]
     print(db)
-    print_directory(db, room_numbers)
+    print_database(db)
+    # room_numbers = ["103", "232", "333"]
+    # print(db)
+    # print_directory(db, room_numbers)
     print(get_test_result(db, 2, "LDL"))
+    return
 
 def print_directory(db, room_numbers):
     for i, patient in enumerate(db):
@@ -50,7 +53,7 @@ def print_directory(db, room_numbers):
 
 def get_patient_entry(db, mrn_to_find):
     for patient in db:
-        if patient[1] == mrn_to_find:
+        if patient["MRN"] == mrn_to_find:
             return patient
     return False
 
@@ -61,7 +64,7 @@ def add_test_to_patient(db, mrn_to_find, test_name, test_value):
     if patient == False:
         print("Bad entry")
     else:
-        patient[3].append([test_name, test_value])#3代表第四空
+        patient["Tests"].append([test_name, test_value])#3代表第四空
     return   #表示结束 没意义
 
 
@@ -73,7 +76,7 @@ def get_test_value_from_test_list(test_list, test_name):
 
 def get_test_result(db, mrn, test_name):
     patient = get_patient_entry(db, mrn)
-    test_value = get_test_value_from_test_list(patient[3], test_name)
+    test_value = get_test_value_from_test_list(patient["Tests"], test_name)
     return test_value
 
 
