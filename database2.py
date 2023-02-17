@@ -5,13 +5,26 @@ def create_patient_entry(first_name, last_name, patient_mrn, patient_age):
                    "Tests": []}    
     return new_patient
     
-    
+ 
+def get_full_name(patient):
+    return "{} {}".format(patient["First Name"], patient["Last Name"])
+
+
+def print_database(db):
+    for patient in db:
+        print("MRN: {}, Full Name: {}, Age: {}".format(patient["MRN"],
+                                                       get_full_name(patient),
+                                                       patient["Age"]))
+
+
+
 def main_driver():
     db = []
     db.append(create_patient_entry("Ann", "Ables", 1, 34))
     db.append(create_patient_entry("Bob", "Boyles", 2, 45))
     db.append(create_patient_entry("Chris", "Chou", 3, 52))
     print(db)
+    print_database(db)
     add_test_to_patient(db, 1, "HDL", 120)
     add_test_to_patient(db, 2, "LDL", 100)
     add_test_to_patient(db, 2, "HDL", 99)
@@ -29,11 +42,18 @@ def print_directory(db, room_numbers):
    
 
 
+# def get_patient_entry(db, mrn_to_find):
+    # for patient in db:
+        # if patient[1] == mrn_to_find:  list----[1] 要数 多的时候不方便
+            # return patient
+    # return False
+
 def get_patient_entry(db, mrn_to_find):
     for patient in db:
         if patient[1] == mrn_to_find:
             return patient
     return False
+
 
 
 def add_test_to_patient(db, mrn_to_find, test_name, test_value):
