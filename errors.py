@@ -55,16 +55,19 @@ def main():
     # There was no error
 # 3.000000001396984
 
-    try:
+    try: #try block can do any amount of code in it but better be specific
         answer = calc_square_root(x)
+        x = answer + 5
+        if x > 10: # if any of this lines causes a error, it will jump down into other blocks
+            go here
     except TypeError:  # x = "4"
         new_x = int(x)
         answer = calc_square_root(new_x)
     except ValueError: # x = -4
         print("You must send a number")
         answer = ""
-    else:
-        print("There was no error")
+    except:
+        print("All errors")#it is not good but sometimes u need to make codes ruuning
     print(answer)
         
     # $ python errors.py
@@ -72,7 +75,7 @@ def main():
     # we need to tell the user sth about hey u didnt do it correctly
 
 
-#To capture this error to fix things in my codes
+#To capture all error 
 
     
 if __name__ == "__main__":
