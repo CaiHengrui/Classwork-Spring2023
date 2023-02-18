@@ -19,8 +19,18 @@
 # second_fruit = in_line.readline() #read single line in the file
 
 
-
-    in_file = open("input_file.txt", "r")
+#two way to test it
+def read_file(filename):
+    in_file = open(filename, "r")
     first_line = in_file.readline()
     patient_data = first_line.strip("\n").split("=") # 去掉后面的换行，从=分开
     patient_id = int(patient_data[1])
+
+
+#为方便写在一起
+def test_read_file():
+    from mdoule import read_file
+    filename = "my_test_data.txt"
+    answer = read_file(filename)
+    expected = 50
+    assert ==expected
