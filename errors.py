@@ -49,14 +49,30 @@ def calc_square_root(n):
    
    
 def main():
-    print(calc_square_root(-4))
-    
+    # x = "4"
+    # x = -4
+    x = 9
+    # There was no error
+# 3.000000001396984
+
+    try:
+        answer = calc_square_root(x)
+    except TypeError:  # x = "4"
+        new_x = int(x)
+        answer = calc_square_root(new_x)
+    except ValueError: # x = -4
+        print("You must send a number")
+        answer = ""
+    else:
+        print("There was no error")
+    print(answer)
+        
     # $ python errors.py
     # -4 
     # we need to tell the user sth about hey u didnt do it correctly
 
 
-
+#To capture this error to fix things in my codes
 
     
 if __name__ == "__main__":
