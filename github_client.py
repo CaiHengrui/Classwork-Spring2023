@@ -1,7 +1,7 @@
 import requests
 
-r = requests.get("https://api.github.com/repos/dward2/BME547/branches")
-print(r)
+r = requests.get("https://api.github.com/repos/dward2/BME547/branches")#/repos/{owner}/{repo}/branches
+print(r)                                                                     #github ID
 print(type(r))
 print(r.status_code) # whether this request is a good one:  404 doesnot exist/ 200 good one
 #make a request douyao check status code
