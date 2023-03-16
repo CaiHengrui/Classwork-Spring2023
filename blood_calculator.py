@@ -118,14 +118,7 @@ def TC_output(TC_value,TC_analy):
     print("The Total Cholesterol result of {} is considered {}".format(TC_value,TC_analy))
     return
 
-<<<<<<< HEAD
-if __name__ == "__main__":
-    interface()
-=======
-
-
 if __name__ == "__main__":
     interface()
 
->>>>>>> 0ac5c100f9580d1d903b9fd14951bf89a1c6a91e
 # merge zhihou  checkout main  and pull
