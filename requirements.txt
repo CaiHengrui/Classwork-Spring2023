@@ -3,4 +3,6 @@ pytest
 pytest-pycodestyle
 requests
 Flask
+pymodm
+dnspython
 

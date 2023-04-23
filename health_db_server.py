@@ -8,7 +8,11 @@
 # """
 import logging
 from flask import Flask, request, jsonify
+from pymodm import connect, MongoModel, fields
 
+from PatientModel import Patient
+from pymodm import errors as pymodm_errors
+from secret import mongodb_acct, mongodb_pswd
 """
 Database Description: A dictionary of dictionaries.
 keys -> ids for the patients
@@ -21,6 +25,15 @@ name and test result
 db = {}
 
 app = Flask(__name__)
+
+
+def init_server():
+    logging.basicConfig(filename="server.log", filemode='w')
+    # connect("mongodb+srv://bme547hc:aH67Fx1otM8xgV10@bme547.d0xuvpa.mongodb.net/"
+    #         "health_db_2023?retryWrites=true&w=majority")
+    connect("mongodb+srv://{}:{}@bme547.d0xuvpa.mongodb.net/"
+            "health_db_2023?retryWrites=true&w=majority"
+            .format(mongodb_acct, mongodb_pswd))
 
 
 def add_patient_to_db(patient_id, patient_name, blood_type):
@@ -46,13 +59,17 @@ def add_patient_to_db(patient_id, patient_name, blood_type):
     Returns:
         None
     """
-    new_patient = {"id": patient_id,
-                   "name": patient_name,
-                   "blood_type": blood_type,
-                   "tests": []}
-    db[patient_id] = new_patient
-    print(db)
-
+    # new_patient = {"id": patient_id,
+    #                "name": patient_name,
+    #                "blood_type": blood_type,
+    #                "tests": []} ignore
+    # db[patient_id] = new_patient
+    # print(db)
+    new_patient = Patient(patient_id=patient_id,
+                          patient_name=patient_name,
+                          blood_type=blood_type)
+    saved_patient = new_patient.save()
+    return saved_patient
 
 @app.route("/new_patient", methods=["POST"])
 def post_new_patient():
@@ -150,8 +167,11 @@ def add_test_to_db(patient_id, test_name, test_value):
         None
     """
     # db[patient_id]["tests"].appends((test_name, test_value))
-    db[patient_id]["tests"].append((test_name, test_value))
-    print(db)
+    # db[patient_id]["tests"].append((test_name, test_value))
+    # print(db)
+    x = Patient.objects.raw({"_id": patient_id}).first()
+    x.tests.append((test_name, test_value))
+    x.save()
 
 
 # def validate_input_data_add_test(in_data):
@@ -241,10 +261,15 @@ def does_patient_exist_in_db(patient_id):
     Returns:
         bool: True if patient exists in database, False otherwise
     """
-    if patient_id in db:
-        return True
-    else:
+    # if patient_id in db:
+    #     return True
+    # else:
+    #     return False
+    try:
+        db_item = Patient.objects.raw({"_id": patient_id}).first()
+    except pymodm_errors.DoesNotExist:
         return False
+    return True
 
 
 def add_test_driver(in_data):
@@ -347,8 +372,9 @@ def get_patient_from_dictionary(patient_id):  # a mock version
         dict: patient information of patient with id that matches parameter id,
     """
     # Mock ?
-    patient = {"id": 123, "name": "David", "tests": [("HDL", 150)]}
-    return patient
+    # patient = {"id": 123, "name": "David", "tests": [("HDL", 150)]}
+    # return patient
+    pass
     # patient = db[patient_id]
     # return patient
 
@@ -382,5 +408,7 @@ def validate_patient_id_from_get(patient_id):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(filename="server.log", filemode='w')
+    # logging.basicConfig(filename="server.log", filemode='w')
+    init_server()
     app.run()
+
