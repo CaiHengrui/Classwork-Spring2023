@@ -23,9 +23,9 @@ def set_up_window():
 
     # put this lable inside the root window
     top_label = ttk.Label(root, text="Blood Donor Database")
+    # ttk.Label(root, text="Blood Donor Database").pack()
     # where to put
-    top_label.grid(column=0, row=0)
-
+    top_label.grid(column=0, row=0)    # top_label.pack()  -different layout
     name_label = ttk.Label(root, text="Name:")
     name_label.grid(column=0, row=1)
 
