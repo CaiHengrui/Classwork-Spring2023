@@ -1,47 +1,87 @@
 import tkinter as tk
 from tkinter import ttk
 # from tkinter import *  (common but not recommended)
+import requests
+
+
+def create_blood_string(blood_letter, rh):
+    blood_string = "{}{}".format(blood_letter, rh)
+    return blood_string
+
+
+def id_number_verification(id_number):
+    if 1 <= id_number <= 1000000:
+        return True
+    else:
+        return False
+
+
+def send_data_to_server(patient_name, id_number, blood_string,
+                        donation_center):
+    patient = {"id": id_number, "name": patient_name,
+               "blood_type": blood_string}
+    r = requests.post("http://127.0.0.1:5000/new_patient", json=patient)
+    return r.text
+
+
+def check_and_upload_data(patient_name, id_number, blood_letter, rh,
+                          donation_center):
+    blood_string = create_blood_string(blood_letter, rh)
+    id_number = int(id_number)
+    if id_number_verification(id_number) is False:
+        return "ID number is incorrect"
+    msg = send_data_to_server(patient_name, id_number, blood_string,
+                              donation_center)
+    return msg
 
 
 def set_up_window():
     def ok_btn_cmd():
         print("Ok clicked")
+        # 1.get infor from the GUI
         patient_name = name_value.get()
         id_number = id_value.get()
         blood_letter = blood_letter_value.get()
         rh = rh_factor_value.get()
-        print("Patient name is {}".format(patient_name))
-        print("Patient id is {}".format(id_number))
-        print("Patient blood type is {}{}".format(blood_letter, rh))
+        donation_center = donation_value.get()
+        # 2.send data to other functions and do the work and are testable
+        msg = check_and_upload_data(patient_name, id_number, blood_letter, rh,
+                                    donation_center)
+        # 3.update the GUI
+        status_label.configure(text=msg)  # status_label = ttk.Label(root, text="")  # start with nothing
+        # print("Patient name is {}".format(patient_name))
+        # print("Patient id is {}".format(id_number))
+        # print("Patient blood type is {}{}".format(blood_letter, rh))
+        # donation_combobox["values"] = ("A", "B", "C")  # click ok button will change list
 
     def cancel_btn_cmd():
         root.destroy()  #
 
     root = tk.Tk()  # make a root(can be anything) window
     root.title("Donor Database GUI")
-    root.geometry("800x600")
+    # root.geometry("800x600")
 
     # put this lable inside the root window
     top_label = ttk.Label(root, text="Blood Donor Database")
     # ttk.Label(root, text="Blood Donor Database").pack()
-    # where to put
-    top_label.grid(column=0, row=0)    # top_label.pack()  -different layout
+    # where to put #占用两列（默认centered） #顶格sticky=“W” （west side：靠左）or ”E“ast or "N"orth (top) or "S"outh or SE
+    top_label.grid(column=0, row=0, columnspan=2, sticky=tk.W)    # top_label.pack()  -different layout
     name_label = ttk.Label(root, text="Name:")
-    name_label.grid(column=0, row=1)
+    name_label.grid(column=0, row=1, sticky=tk.E)
 
     # store string variable
     name_value = tk.StringVar()
     # name_value.set("Enter your name here")  # 在输入框显示默认
     # entry 输入框
     name_entry = ttk.Entry(root, textvariable=name_value)
-    name_entry.grid(column=1, row=1)
+    name_entry.grid(column=1, row=1, padx=5)  # "padding x"的缩写，其中"padding"指填充，"x"表示水平方向
 
     id_label = ttk.Label(root, text="Id:")
-    id_label.grid(column=0, row=2)
+    id_label.grid(column=0, row=2, sticky=tk.E)
     id_value = tk.StringVar()
     # id_value = tk.intVar() 会在输入框默认显示0
     id_entry = ttk.Entry(root, textvariable=id_value)
-    id_entry.grid(column=1, row=2)
+    id_entry.grid(column=1, row=2, padx=5)  # Add 5 pixels of horizontal padding
 
     # when button was pressed, command will be run ---def ok_btn_cmd():
     ok_button = ttk.Button(root, text="Ok", command=ok_btn_cmd)
@@ -53,19 +93,19 @@ def set_up_window():
     # text="A"---display in GUI; value="A"---what put in variable if select button
     A_check = ttk.Radiobutton(root, text="A", variable=blood_letter_value,
                               value="A")
-    A_check.grid(column=0, row=3)
+    A_check.grid(column=0, row=3, sticky=tk.W)
 
     B_check = ttk.Radiobutton(root, text="B", variable=blood_letter_value,
                               value="B")
-    B_check.grid(column=0, row=4)
+    B_check.grid(column=0, row=4, sticky=tk.W)
 
     AB_check = ttk.Radiobutton(root, text="AB", variable=blood_letter_value,
                               value="AB")
-    AB_check.grid(column=0, row=5)
+    AB_check.grid(column=0, row=5, sticky=tk.W)
 
     O_check = ttk.Radiobutton(root, text="O", variable=blood_letter_value,
                               value="O")
-    O_check.grid(column=0, row=6)
+    O_check.grid(column=0, row=6, sticky=tk.W)
 
     #checkbox
     rh_factor_value = tk.StringVar()
@@ -74,6 +114,17 @@ def set_up_window():
                                        variable=rh_factor_value,
                                        onvalue='+', offvalue='-')
     check_box_widget.grid(column=1, row=4)
+
+    donation_label = ttk.Label(root, text="Closest Donation Center")
+    donation_label.grid(column=2, row=0)
+    donation_value = tk.StringVar()
+    donation_combobox = ttk.Combobox(root, textvariable=donation_value)  # 下拉列表框
+    donation_combobox.grid(column=2, row=1)
+    donation_combobox["values"] = ("Durham", "Apex", "Raleigh")
+    donation_combobox.state(["readonly"])  # 防止能输入别的（只读）
+
+    status_label = ttk.Label(root, text="")  # start with nothing
+    status_label.grid(row=7, column=0, columnspan=10)
 
     # print("Before main loop")
     root.mainloop()  # tell tk to display the window # make sure it is the last line
