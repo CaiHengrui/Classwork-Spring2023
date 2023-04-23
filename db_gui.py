@@ -45,10 +45,11 @@ def set_up_window():
         rh = rh_factor_value.get()
         donation_center = donation_value.get()
         # 2.send data to other functions and do the work and are testable
-        msg = check_and_upload_data(patient_name, id_number, blood_letter, rh,
-                                    donation_center)
-        # 3.update the GUI
-        status_label.configure(text=msg)  # status_label = ttk.Label(root, text="")  # start with nothing
+        # msg = check_and_upload_data(patient_name, id_number, blood_letter, rh,
+        #                             donation_center)
+        # # 3.update the GUI
+        # status_label.configure(text=msg)  # status_label = ttk.Label(root, text="")  # start with nothing
+        # id_entry.configure(state=tk.DISABLED)  # 当ok被按时，禁用id_entry
         # print("Patient name is {}".format(patient_name))
         # print("Patient id is {}".format(id_number))
         # print("Patient blood type is {}{}".format(blood_letter, rh))
@@ -56,13 +57,34 @@ def set_up_window():
 
     def cancel_btn_cmd():
         root.destroy()  #
+        # id_entry.configure(state=tk.NORMAL)  # 恢复禁用
+
+    def change_label_color():
+        current_color = top_label.cget("foreground")  # 获取top_label的当前颜色状态
+        if current_color == "":
+            color = "black"
+        else:
+            color = current_color.string  # 获取当前颜色的字符串值
+        if color == "black":
+            new_color = "red"
+        else:
+            new_color = "black"
+        top_label.configure(foreground=new_color)
+        root.after(1000, change_label_color)  # 重新call这个function
+
+    def shuffle_choices():
+        current_choices = list(donation_combobox.cget("values"))
+        import random
+        random.shuffle(current_choices)
+        donation_combobox.configure(values=current_choices)
 
     root = tk.Tk()  # make a root(can be anything) window
     root.title("Donor Database GUI")
     # root.geometry("800x600")
 
     # put this lable inside the root window
-    top_label = ttk.Label(root, text="Blood Donor Database")
+    top_label = ttk.Label(root, text="Blood Donor Database", foreground="red")  # 改字体颜色
+    top_label.configure(foreground="red")  # 这样改颜色也行
     # ttk.Label(root, text="Blood Donor Database").pack()
     # where to put #占用两列（默认centered） #顶格sticky=“W” （west side：靠左）or ”E“ast or "N"orth (top) or "S"outh or SE
     top_label.grid(column=0, row=0, columnspan=2, sticky=tk.W)    # top_label.pack()  -different layout
@@ -123,8 +145,13 @@ def set_up_window():
     donation_combobox["values"] = ("Durham", "Apex", "Raleigh")
     donation_combobox.state(["readonly"])  # 防止能输入别的（只读）
 
+    donation_combobox.configure(postcommand=shuffle_choices)
+
     status_label = ttk.Label(root, text="")  # start with nothing
     status_label.grid(row=7, column=0, columnspan=10)
+
+    root.after(3000, change_label_color)  # 注意这里的function不要（）
+
 
     # print("Before main loop")
     root.mainloop()  # tell tk to display the window # make sure it is the last line
