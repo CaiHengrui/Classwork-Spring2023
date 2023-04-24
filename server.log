@@ -3,3 +3,4 @@ INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug:127.0.0.1 - - [23/Apr/2023 04:00:07] "POST /new_patient HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [23/Apr/2023 04:02:06] "POST /new_patient HTTP/1.1" 200 -
+
