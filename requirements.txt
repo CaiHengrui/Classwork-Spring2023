@@ -5,4 +5,5 @@ requests
 Flask
 pymodm
 dnspython
+Pillow
 
