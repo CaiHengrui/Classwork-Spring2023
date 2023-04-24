@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 # from tkinter import *  (common but not recommended)
 import requests
+from PIL import Image, ImageTk
+from tkinter import filedialog
 
 
 def create_blood_string(blood_letter, rh):
@@ -78,6 +80,29 @@ def set_up_window():
         random.shuffle(current_choices)
         donation_combobox.configure(values=current_choices)
 
+    def change_image_cmd():
+        # term: garbage collection
+        print("Run change image")
+        # new_image = Image.open("Images/blood_pic.jpeg")
+        # tk_image = ImageTk.PhotoImage(new_image)
+        # image_label.configure(image=tk_image)
+        # image_label.image = tk_image
+
+        filename = filedialog.askopenfilename(initialdir="Images")
+        if filename == "":  # cancel
+            return
+        new_image = Image.open(filename)
+        # keep the x y ratio
+        current_size = new_image.size  # test 在其他地方写？
+        max_size = 150  # test
+        alpha = max_size/max(current_size)  # test
+        new_image = new_image.resize((round(alpha*current_size[0]),  # test
+                                      round(alpha*current_size[1])))  # test
+        tk_image = ImageTk.PhotoImage(new_image)
+        image_label.configure(image=tk_image)
+        print(type(tk_image))
+        image_label.image = tk_image  # solve garbage collection
+
     root = tk.Tk()  # make a root(can be anything) window
     root.title("Donor Database GUI")
     # root.geometry("800x600")
@@ -150,8 +175,20 @@ def set_up_window():
     status_label = ttk.Label(root, text="")  # start with nothing
     status_label.grid(row=7, column=0, columnspan=10)
 
-    root.after(3000, change_label_color)  # 注意这里的function不要（）
+    # add image
+    pil_image = Image.open("Images/blank_pic.jpeg")
+    pil_image = pil_image.resize((150, 100))
+    tk_image = ImageTk.PhotoImage(pil_image)
+    # put it into label
+    image_label = ttk.Label(root, image=tk_image)
+    image_label.grid(column=1, row=7)
+    image_label.image = tk_image  # solve garbage collection
 
+    image_change_button = ttk.Button(root, text="Change Image",
+                                     command=change_image_cmd)
+    image_change_button.grid(column=2, row=7)
+
+    root.after(3000, change_label_color)  # 注意这里的function不要（）
 
     # print("Before main loop")
     root.mainloop()  # tell tk to display the window # make sure it is the last line
